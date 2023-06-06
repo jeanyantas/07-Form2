@@ -1,0 +1,104 @@
+<h1 class="text-dark text-center my-2">Registro de empleados</h1>
+<form [formGroup]="formRegistrationEmployee" (ngSubmit)="onSubmit()" class="row form-control bg-light">
+
+  <div class="row mt-3">
+    <div class="col-12 col-md-4 mb-3">
+      <label for="name" class="form-label">Nombre completo:</label>
+      <input type="text" id="name"
+        class="form-control" formControlName="name"
+        placeholder="Ingrese el nombre completo del empleado">
+      <span *ngIf="isValidField('name')"
+        class="form-text text-danger">
+        Campo no válido
+      </span>
+    </div>
+
+    <div class="col-12 col-md-4 mb-3">
+      <label for="email" class="form-label">Correo electrónico:</label>
+      <input type="text" id="email"
+        class="form-control" formControlName="email"
+        placeholder="Ingrese el correo electrónico">
+      <span *ngIf="isValidField('email')"
+         class="form-text text-danger">
+         Campo no válido
+      </span>
+    </div>
+
+    <div class="col-12 col-md-4 mb-3">
+      <label for="phone" class="form-label">Teléfono:</label>
+      <input type="tel" id="phone"
+        class="form-control" formControlName="phone"
+        placeholder="Ingrese el número de teléfono">
+      <span *ngIf="isValidField('phone')"
+         class="form-text text-danger">
+         Campo no válido
+      </span>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12 col-md-6 mb-3">
+      <label for="position" class="form-label">Cargo del empleado:</label>
+      <div formArrayName="position" *ngIf="formRegistrationEmployee.get('position')?.value">
+        <select id="position" class="form-select">
+          <option *ngFor="let position of formRegistrationEmployee.get('position')?.value; let i = index"
+            [value]="position[i]">
+            {{ position }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="departament" class="form-label">Departamento del empleado:</label>
+      <div formArrayName="departament" *ngIf="formRegistrationEmployee.get('departament')?.value">
+        <select id="departament" class="form-select">
+          <option *ngFor="let departament of formRegistrationEmployee.get('departament')?.value; let i = index"
+            [value]="departament[i]">
+            {{ departament }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12 col-md-6 mb-3">
+      <label for="dateStartEmployee" class="form-label">Fecha de inicio del empleado:</label>
+      <input type="date" id="dateStartEmployee"
+        formControlName="date"
+        class="form-control">
+      <span *ngIf="isValidField('date')"
+        class="form-text text-danger">
+        Campo no válido
+      </span>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <label for="addressEmployee" class="form-label">Dirección del empleado:</label>
+      <input type="text" id="addressEmployee"
+        formControlName="address"
+        class="form-control"
+        placeholder="Ingrese la dirección del empleado">
+      <span *ngIf="isValidField('address')"
+        class="form-text text-danger">
+        Campo no válido
+      </span>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <!-- [disabled]="formRegistrationEmployee.invalid" -->
+    <button class="col-12 col-md-3 mx-auto btn btn-primary" >Agregar empleado</button>
+  </div>
+
+
+</form>
+
+<span>Position - Errors</span>
+<pre>{{ formRegistrationEmployee.controls['position'].errors | json }}</pre>
+
+<span>Departament - Errors</span>
+<pre>{{ formRegistrationEmployee.controls['departament'].errors | json }}</pre>
+
+<span>Name - Errors</span>
+<pre>{{ formRegistrationEmployee.controls['name'].errors | json }}</pre>
